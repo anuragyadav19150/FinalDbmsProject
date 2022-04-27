@@ -170,7 +170,7 @@ app.post("/cart", (req, res) => {
           db.query(
             // console.log("YEAP done");
             "INSERT INTO cart (cartid,quantity, cost, Customer_cid) VALUES (?,?,?,?)",
-            [cartid, quan, cost, cid],
+            [cartid, 0, 0, cid],
             (err, result) => {
               if (err) {
                 console.log(err);
@@ -215,27 +215,27 @@ app.post("/cart", (req, res) => {
           //   }
           // );
 
-          db.query(
-            // console.log("YEAP done");
-            "update cart set quantity = (quantity+1) where (cartid = ?)",
-            cartid,
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              }
-            }
-          );
+          // db.query(
+          //   // console.log("YEAP done");
+          //   "update cart set quantity = (quantity+1) where (cartid = ?)",
+          //   cartid,
+          //   (err, result) => {
+          //     if (err) {
+          //       console.log(err);
+          //     }
+          //   }
+          // );
 
-          db.query(
-            // console.log("YEAP done");
-            "update cart set cost = (cost+ ?) where (cartid = ?)",
-            [cost, cartid],
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              }
-            }
-          );
+          // db.query(
+          //   // console.log("YEAP done");
+          //   "update cart set cost = (cost+ ?) where (cartid = ?)",
+          //   [cost, cartid],
+          //   (err, result) => {
+          //     if (err) {
+          //       console.log(err);
+          //     }
+          //   }
+          // );
 
           db.query(
             // console.log("YEAP done");
@@ -370,7 +370,7 @@ app.post('/countCustomers',(req,res)=>{
 
 app.post('/pieChartData',(req,res)=>{
   
-  db.query("SELECT catagory,Count(catagory) as 'cat' FROM ((order_has_product LEFT JOIN finaldbmsproject.order on finaldbmsproject.order.oid =  finaldbmsproject.order_has_product.Order_oid) LEFT JOIN finaldbmsproject.product on finaldbmsproject.order_has_product.Product_pid = finaldbmsproject.product.pid) GROUP BY catagory order by cat desc;",(err,result)=>{
+  db.query("select *, rank() over (order by D.cat desc) as s_rank from (SELECT catagory,Count(catagory) as 'cat' FROM ((order_has_product LEFT JOIN finaldbmsproject.order on finaldbmsproject.order.oid =  finaldbmsproject.order_has_product.Order_oid) LEFT JOIN finaldbmsproject.product on finaldbmsproject.order_has_product.Product_pid = finaldbmsproject.product.pid) GROUP BY catagory order by cat desc) as D;",(err,result)=>{
       if(err){
           console.log(err)
       }
@@ -387,7 +387,7 @@ app.post('/productStock',(req,res)=>{
           console.log(err)
       }
       else{
-          console.log('result is:',result)
+          console.log('result is:g',result)
           res.send(result)
       }
   }
@@ -395,7 +395,7 @@ app.post('/productStock',(req,res)=>{
 })
 
 app.post('/employeeDetails',(req,res)=>{
-  db.query("Select * from finaldbmsproject.employee",(err,result)=>{
+  db.query("Select * from finaldbmsproject.empDetail",(err,result)=>{
       if(err){
           console.log(err)
       }
