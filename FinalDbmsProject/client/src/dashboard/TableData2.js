@@ -350,8 +350,8 @@ export default function EnhancedTable(props) {
                       </TableCell>
                       <TableCell align="right">{row.pid}</TableCell>
                       <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">{row.category}</TableCell>
-                      <TableCell align="right">{row.stock}</TableCell>
+                      <TableCell align="right">{row.catagory}</TableCell>
+                      <TableCell align="right">{row.stocks}</TableCell>
                     </TableRow>
                   );
                 })}

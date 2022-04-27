@@ -12,7 +12,7 @@ import Carousal from '../components/Carousal';
 
 function Dashboard2() {
   const location = useLocation();
-  console.log('Dashboard',location.state.chartDetails)
+  console.log('Dashboard',location.state.stockDetail)
 
   
   const [year,setYear]=useState(-1)
